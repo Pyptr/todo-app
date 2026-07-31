@@ -68,9 +68,9 @@ fun TextInput(
 @Composable
 fun TimeBox(
     value: String,
-    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    maxLength: Int = 2
+    maxLength: Int = 2,
+    onValueChange: (String) -> Unit
 ) {
     Box(
         modifier
@@ -119,8 +119,8 @@ fun Pill(text: String, modifier: Modifier = Modifier) {
 fun SegmentedOption(
     selected: Boolean,
     text: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     Box(
         modifier

@@ -136,9 +136,9 @@ fun Toggle(
 @Composable
 fun PrimaryButton(
     text: String,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
