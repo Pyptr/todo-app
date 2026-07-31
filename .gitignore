@@ -1,0 +1,42 @@
+# ---------- Android / IntelliJ / Gradle ----------
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+*.dex
+
+# Generated build output
+bin/
+gen/
+out/
+build/
+.gradle/
+.externalNativeBuild/
+.cxx/
+
+# Local configuration (SDK path, etc.)
+local.properties
+
+# Android Studio / IntelliJ IDEA
+*.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+*.log
+
+# Keystore / signing
+*.jks
+*.keystore
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# ---------- WorkBuddy project data (not part of the app) ----------
+.workbuddy/
+
+# NOTE: gradle-wrapper.jar is intentionally NOT ignored so that
+# `./gradlew` works for anyone who clones this repo after running
+# `gradle wrapper` (or opening in Android Studio, which generates it).

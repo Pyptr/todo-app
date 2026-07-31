@@ -1,0 +1,51 @@
+name: Build Debug APK
+
+# 在任意有网环境（GitHub Actions）一键编译并产出 debug APK。
+# 前置：把本工程（含 settings.gradle.kts 的根目录）推送到 GitHub 仓库，
+#       然后在仓库 Actions 页手动 Run workflow（workflow_dispatch），
+#       或向 main/master 推送自动触发。
+# 说明：工程根目录即 Android 项目根（settings.gradle.kts 在此）。
+#       若你把 Android 工程放在仓库子目录（如 paly/），请把下方
+#       - run 步骤加上 `working-directory: paly`，并把 upload 的 path 改为
+#       `paly/app/build/outputs/apk/debug/app-debug.apk`。
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: ${{ github.workspace }}/android-sdk
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK (cmdline-tools + platform 34 + build-tools 34.0.0)
+        run: |
+          mkdir -p "$ANDROID_HOME/cmdline-tools"
+          curl -sL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o /tmp/cmdtools.zip
+          unzip -q /tmp/cmdtools.zip -d "$ANDROID_HOME/cmdline-tools"
+          mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
+      - name: Build debug APK
+        run: |
+          curl -sL https://services.gradle.org/distributions/gradle-8.9-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /tmp
+          /tmp/gradle-8.9/bin/gradle assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
