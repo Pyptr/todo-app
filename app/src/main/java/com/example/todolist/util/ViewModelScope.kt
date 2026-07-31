@@ -15,22 +15,24 @@ import kotlin.coroutines.CoroutineContext
  * expose `viewModelScope` on the compile classpath under certain Gradle/Kotlin
  * combinations, so we define an identical extension here to guarantee compilation.
  * Semantics match AndroidX: a SupervisorJob-backed scope on Dispatchers.Main.immediate,
- * stored on the ViewModel and cancelled automatically when the ViewModel is cleared.
+ * stored on the ViewModel via the public `addCloseable`/`getCloseable` API and cancelled
+ * automatically when the ViewModel is cleared.
  */
 
-private const val JOB_KEY = "com.example.todolist.util.ViewModelCoroutineScope.JOB_KEY"
+private const val SCOPE_KEY = "com.example.todolist.util.viewModelScope"
 
-internal class CloseableCoroutineScope(context: CoroutineContext) : Closeable, CoroutineScope {
+val ViewModel.viewModelScope: CoroutineScope
+    get() {
+        val existing = getCloseable(SCOPE_KEY) as? CoroutineScope
+        if (existing != null) return existing
+        val scope = CloseableCoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        addCloseable(SCOPE_KEY, scope)
+        return scope
+    }
+
+private class CloseableCoroutineScope(context: CoroutineContext) : Closeable, CoroutineScope {
     override val coroutineContext: CoroutineContext = context
     override fun close() {
         coroutineContext.cancel()
     }
 }
-
-val ViewModel.viewModelScope: CoroutineScope
-    get() {
-        val existing = this.getTag(JOB_KEY) as? CoroutineScope
-        if (existing != null) return existing
-        val scope = CloseableCoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-        return setTagIfAbsent(JOB_KEY, scope) as CoroutineScope
-    }
