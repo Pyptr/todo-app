@@ -3,6 +3,7 @@ package com.example.todolist.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelScope
 import com.example.todolist.data.model.Todo
 import com.example.todolist.data.repository.TodoRepository
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,16 +14,16 @@ import kotlinx.coroutines.launch
 class HomeViewModel(private val repository: TodoRepository) : ViewModel() {
 
     val todos: StateFlow<List<Todo>> = repository.todos.stateIn(
-        scope = androidx.lifecycle.viewModelScope,
+        scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = emptyList()
     )
 
     init {
-        androidx.lifecycle.viewModelScope.launch { repository.ensureSeeded() }
+        viewModelScope.launch { repository.ensureSeeded() }
     }
 
-    fun toggle(todo: Todo) = androidx.lifecycle.viewModelScope.launch {
+    fun toggle(todo: Todo) = viewModelScope.launch {
         repository.toggleComplete(todo, !todo.completedToday)
     }
 

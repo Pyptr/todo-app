@@ -2,7 +2,7 @@ package com.example.todolist.ui.reminders
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.todolist.data.model.Todo
 import com.example.todolist.data.repository.TodoRepository
@@ -13,13 +13,13 @@ import kotlinx.coroutines.launch
 
 class RemindersViewModel(private val repository: TodoRepository) : ViewModel() {
     val todos: StateFlow<List<Todo>> = repository.todos.stateIn(
-        scope = androidx.lifecycle.viewModelScope,
+        scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = emptyList()
     )
 
     init {
-        androidx.lifecycle.viewModelScope.launch { repository.ensureSeeded() }
+        viewModelScope.launch { repository.ensureSeeded() }
     }
 
     companion object {
