@@ -38,7 +38,7 @@ import com.example.todolist.ui.theme.SectionGapLg
 import com.example.todolist.ui.theme.TextSecondary
 import com.example.todolist.ui.theme.Type
 import com.example.todolist.util.headerDateLabel
-import kotlinx.coroutines.flow.collectAsState
+import androidx.compose.runtime.collectAsState
 
 @Composable
 fun HomeScreen(nav: NavHostController) {

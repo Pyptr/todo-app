@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.todolist.data.model.Todo
@@ -80,7 +81,7 @@ fun Checkbox(
 fun ProgressBar(
     progress: Int,
     modifier: Modifier = Modifier,
-    height: androidx.compose.ui.unit.dp = 6.dp
+    height: Dp = 6.dp
 ) {
     val fraction = (progress.coerceIn(0, 100) / 100f)
     Box(
@@ -163,7 +164,7 @@ fun PrimaryButton(
 fun IconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    size: androidx.compose.ui.unit.dp = 44.dp,
+    size: Dp = 44.dp,
     content: @Composable () -> Unit
 ) {
     Box(

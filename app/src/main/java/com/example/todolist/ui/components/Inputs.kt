@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,7 +52,7 @@ fun TextInput(
                 .padding(horizontal = 16.dp)
                 .align(Alignment.Center),
             singleLine = singleLine,
-            keyboardType = keyboardType,
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             textStyle = Type.body,
             decorationBox = { innerTextField ->
                 if (value.isEmpty()) {
@@ -86,7 +87,7 @@ fun TimeBox(
                 .fillMaxWidth()
                 .align(Alignment.Center),
             singleLine = true,
-            keyboardType = KeyboardType.Number,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             textStyle = Type.numeral.copy(textAlign = TextAlign.Center),
             decorationBox = { innerTextField ->
                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {

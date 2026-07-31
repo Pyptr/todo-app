@@ -45,7 +45,7 @@ import com.example.todolist.ui.theme.TextMuted
 import com.example.todolist.ui.theme.TextPrimary
 import com.example.todolist.ui.theme.TextSecondary
 import com.example.todolist.ui.theme.Type
-import kotlinx.coroutines.flow.collectAsState
+import androidx.compose.runtime.collectAsState
 
 @Composable
 fun RemindersScreen(nav: NavHostController) {

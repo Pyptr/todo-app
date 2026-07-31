@@ -4,6 +4,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /** 圆角 Token —— 来源设计规格 §1.3 */
@@ -28,7 +29,7 @@ val RowGap        = 12.dp // 列表项间距
  * 用法：`.sageShadow().background(Card, RoundedCornerShape(CardRadius))`
  */
 fun Modifier.sageShadow(
-    elevation: androidx.compose.ui.unit.dp = 6.dp,
+    elevation: Dp = 6.dp,
     shape: RoundedCornerShape = RoundedCornerShape(CardRadius)
 ): Modifier = this.shadow(
     elevation = elevation,

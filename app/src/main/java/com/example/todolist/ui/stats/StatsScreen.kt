@@ -44,7 +44,7 @@ import com.example.todolist.util.buildHeatmap
 import com.example.todolist.util.computeStreak
 import com.example.todolist.util.computeThisMonth
 import com.example.todolist.util.heatLevel
-import kotlinx.coroutines.flow.collectAsState
+import androidx.compose.runtime.collectAsState
 
 private val WEEK_LABELS = listOf("一", "二", "三", "四", "五", "六", "日")
 private val CELL = 14.dp
