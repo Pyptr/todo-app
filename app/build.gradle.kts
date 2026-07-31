@@ -39,7 +39,7 @@ android {
         compose = true
     }
 
-    // Kotlin 1.9.x uses the standalone Compose compiler (no org.jetbrains.kotlin.plugin.compose plugin).
+    // Kotlin 1.9.25 pairs with the standalone Compose compiler 1.5.15 (no org.jetbrains.kotlin.plugin.compose plugin).
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.15"
     }

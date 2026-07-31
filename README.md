@@ -3,7 +3,7 @@
 根据 `待办清单App-设计规格.md` 实现的高保真 Android 客户端。视觉严格遵循设计稿：暖奶油底（`#F8F6F2`）+ 鼠尾草绿（`#6BA8A0`），Soft Nordic 质感。
 
 ## 技术栈
-- **Kotlin 1.9.24 + Jetpack Compose**（BOM 2024.09.00）
+- **Kotlin 1.9.25 + Jetpack Compose**（独立 Compose 编译器 1.5.15，BOM 2024.06.00）
 - **Material 3** 主题 + 自定义 Design Token
 - **Room**（本地持久化）+ **Kotlin Flow** + **ViewModel**
 - **Navigation Compose**（底部 4 tab + 详情页路由）
