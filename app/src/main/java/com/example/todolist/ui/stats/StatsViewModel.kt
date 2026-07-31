@@ -2,7 +2,7 @@ package com.example.todolist.ui.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.viewModelScope
+import com.example.todolist.util.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.todolist.data.model.CheckIn
 import com.example.todolist.data.repository.TodoRepository

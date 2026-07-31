@@ -3,7 +3,7 @@ package com.example.todolist.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.viewModelScope
+import com.example.todolist.util.viewModelScope
 import com.example.todolist.data.model.Todo
 import com.example.todolist.data.repository.TodoRepository
 import kotlinx.coroutines.flow.SharingStarted
