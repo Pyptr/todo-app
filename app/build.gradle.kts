@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")
     id("kotlin-kapt")
 }
 
@@ -39,6 +38,11 @@ android {
     buildFeatures {
         compose = true
     }
+
+    // Kotlin 1.9.x uses the standalone Compose compiler (no org.jetbrains.kotlin.plugin.compose plugin).
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
 }
 
 dependencies {
@@ -49,7 +53,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.9.2")
 
     // Compose
-    implementation(platform("androidx.compose:compose-bom:2024.09.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
