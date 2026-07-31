@@ -17,8 +17,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ANDROID_HOME: ${{ github.workspace }}/android-sdk
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,14 +27,14 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install Android SDK (cmdline-tools + platform 34 + build-tools 34.0.0)
+      # GitHub 的 ubuntu 运行机已预装完整 Android SDK（位于 $ANDROID_SDK_ROOT）。
+      # 直接复用它，并把 ANDROID_HOME 指向同一路径，避免「两个 SDK 路径不一致」冲突。
+      - name: Configure Android SDK (use runner's preinstalled SDK)
         run: |
-          mkdir -p "$ANDROID_HOME/cmdline-tools"
-          curl -sL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o /tmp/cmdtools.zip
-          unzip -q /tmp/cmdtools.zip -d "$ANDROID_HOME/cmdline-tools"
-          mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
-          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+          echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" "platforms;android-34" "build-tools;34.0.0"
 
       - name: Build debug APK
         run: |
